@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define environment variables for Docker and Ansible
-        DOCKER_REGISTRY = 'docker.io'
+        DOCKER_REGISTRY = 'rocky8055'
         DOCKER_IMAGE = 'my-app'
         DOCKER_TAG = 'latest'
         ANSIBLE_PLAYBOOK = 'ansible-playbook.yml'
