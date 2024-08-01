@@ -46,10 +46,15 @@ pipeline {
             }
         }
 
+       stages {
         stage('Deploy with Ansible') {
             steps {
-                // Step to deploy the application using Ansible
-                sh "ansible-playbook ${ANSIBLE_PLAYBOOK}"
+                script {
+                    // Ensure SSH credentials are set up correctly
+                    withCredentials([sshUserPrivateKey(credentialsId: 'sshkey', keyFileVariable: 'SSH_KEY')]) {
+                        sh 'ansible-playbook ${ANSIBLE_PLAYBOOK} -i inventory'
+                    }
+                }
             }
         }
     }
