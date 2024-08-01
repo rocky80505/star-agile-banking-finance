@@ -52,7 +52,7 @@ pipeline {
                 script {
                     // Ensure SSH credentials are set up correctly
                     withCredentials([sshUserPrivateKey(credentialsId: 'sshkey', keyFileVariable: 'SSH_KEY')]) {
-                        sh 'ansible-playbook ${ANSIBLE_PLAYBOOK} -i ${INVENTORY_FILE}'
+                        sh 'ansible-playbook ${ANSIBLE_PLAYBOOK} -i ${INVENTORY_FILE} --private-key ${SSH_KEY}'
                     }
                 }
             }
