@@ -7,7 +7,7 @@ pipeline {
         DOCKER_IMAGE = 'my-app'
         DOCKER_TAG = 'latest'
         ANSIBLE_PLAYBOOK = 'ansible-playbook.yml'
-        INVENTORY_FILE = 'inventory'
+        
     }
 
     stages {
@@ -40,7 +40,7 @@ pipeline {
                 // Step to push the Docker image to a Docker registry
                 script {
                     def imageName = "${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${DOCKER_TAG}"
-                    withDockerRegistry(credentialsId: 'dockerhubpwd', url: 'https://index.docker.io/v1/') {
+                    withDockerRegistry(credentialsId: 'dockerhub-pwd', url: 'https://index.docker.io/v1/') {
                         sh "docker push ${imageName}"
                     }
                 }
@@ -52,7 +52,7 @@ pipeline {
                 script {
                     // Ensure SSH credentials are set up correctly
                     withCredentials([sshUserPrivateKey(credentialsId: 'sshkey', keyFileVariable: 'SSH_KEY')]) {
-                        sh 'ansible-playbook ${ANSIBLE_PLAYBOOK} -i ${INVENTORY_FILE} --private-key ${SSH_KEY}'
+                        sh 'ansible-playbook ${ANSIBLE_PLAYBOOK}'
                     }
                 }
             }
