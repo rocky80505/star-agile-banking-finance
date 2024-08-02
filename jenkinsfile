@@ -65,10 +65,5 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            // Clean up or notify after the pipeline completes
-            cleanWs()
-        }
-    }
+   
 }
