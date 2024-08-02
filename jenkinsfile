@@ -7,6 +7,7 @@ pipeline {
         DOCKER_IMAGE = 'my-app'
         DOCKER_TAG = 'latest'
         ANSIBLE_PLAYBOOK = 'ansible-playbook.yml'
+        ANSIBLE_SSH_USER = 'ubuntu'
         
     }
 
@@ -52,7 +53,11 @@ pipeline {
                 script {
                     // Ensure SSH credentials are set up correctly
                     withCredentials([sshUserPrivateKey(credentialsId: 'sshkey', keyFileVariable: 'SSH_KEY')]) {
-                        sh 'ansible-playbook ${ANSIBLE_PLAYBOOK} --private-key=${SSH_KEY}'
+                       sh '''
+                        ansible-playbook ${ANSIBLE_PLAYBOOK} \
+                            --private-key=${SSH_KEY} \
+                            --extra-vars "ansible_ssh_user=${ANSIBLE_SSH_USER}"
+                        '''
                     }
                 }
             }
