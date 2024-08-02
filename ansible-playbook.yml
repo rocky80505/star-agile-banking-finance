@@ -30,6 +30,6 @@
         image: rocky8055/my-app:latest
         state: started
         ports:
-          - "8092:8091"
+          - "8081:8081"
       tags:
         - deploy
