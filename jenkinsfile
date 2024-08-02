@@ -8,7 +8,7 @@ pipeline {
         DOCKER_TAG = 'latest'
         ANSIBLE_PLAYBOOK = 'ansible-playbook.yml'
         ANSIBLE_INVENTORY = '/home/ubuntu/inventory.ini'
-        ANSIBLE_SSH_USER = 'ubuntu'
+        ANSIBLE_SSH_USER = 'devops'
         
     }
 
