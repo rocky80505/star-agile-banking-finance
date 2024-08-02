@@ -7,6 +7,7 @@ pipeline {
         DOCKER_IMAGE = 'my-app'
         DOCKER_TAG = 'latest'
         ANSIBLE_PLAYBOOK = 'ansible-playbook.yml'
+        SSH_KEY = '/home/ubuntu/Rocky.pem'
         
     }
 
