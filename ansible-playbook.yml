@@ -1,7 +1,6 @@
 - name: Configure Docker on EC2 Instances
   hosts: all
   become: yes
-  connection: ssh
   tasks:
 
     - name: Update apt package index
