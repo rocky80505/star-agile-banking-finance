@@ -53,7 +53,7 @@ pipeline {
             steps {
                 script {
                     // Ensure SSH credentials are set up correctly
-                    withCredentials([sshUserPrivateKey(credentialsId: 'sshke', keyFileVariable: 'SSH_KEY')]) {
+                    withCredentials([sshUserPrivateKey(credentialsId: 'sshkey', keyFileVariable: 'SSH_KEY')]) {
                        sh '''
                         ansible-playbook ${ANSIBLE_PLAYBOOK} \
                             --private-key=${SSH_KEY} \
