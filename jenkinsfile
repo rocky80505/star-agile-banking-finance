@@ -15,21 +15,18 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Step to pull the latest code from your Git repository
                 checkout scm
             }
         }
 
         stage('Build') {
             steps {
-                // Step to build your project using Maven
                 sh 'mvn clean package'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                // Step to build the Docker image for your application
                 script {
                     def imageName = "${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${DOCKER_TAG}"
                     sh "docker build -t ${imageName} ."
@@ -39,7 +36,6 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
-                // Step to push the Docker image to a Docker registry
                 script {
                     def imageName = "${DOCKER_REGISTRY}/${DOCKER_IMAGE}:${DOCKER_TAG}"
                     withDockerRegistry(credentialsId: 'dockerhub-pwd', url: 'https://index.docker.io/v1/') {
@@ -52,7 +48,6 @@ pipeline {
         stage('Deploy with Ansible') {
             steps {
                 script {
-                    // Ensure SSH credentials are set up correctly
                     withCredentials([sshUserPrivateKey(credentialsId: 'sshkey', keyFileVariable: 'SSH_KEY')]) {
                        sh '''
                         ansible-playbook ${ANSIBLE_PLAYBOOK} \
