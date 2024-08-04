@@ -9,6 +9,7 @@ pipeline {
         ANSIBLE_PLAYBOOK = 'ansible-playbook.yml'
         ANSIBLE_INVENTORY = '/home/ubuntu/inventory.ini'
         ANSIBLE_SSH_USER = 'ubuntu'
+        
     }
 
     stages {
@@ -53,13 +54,17 @@ pipeline {
                 script {
                     // Ensure SSH credentials are set up correctly
                     withCredentials([sshUserPrivateKey(credentialsId: 'sshkey', keyFileVariable: 'SSH_KEY')]) {
-                        sh "ansible-playbook -i ${ANSIBLE_INVENTORY} ${ANSIBLE_PLAYBOOK} --private-key=${SSH_KEY} -vvvv"
+                       sh '''
+                        ansible-playbook ${ANSIBLE_PLAYBOOK} \
+                            --private-key=${SSH_KEY} \
+                            --inventory=${ANSIBLE_INVENTORY}
+                        '''
                     }
                 }
             }
         }
     }
+
+   
 }
-
-
 
