@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+        stage(' git Checkout') {
             steps {
-                  git url: 'https://github.com/rocky80505/star-agile-banking-finance.git'
+                  checkout scm
             }
         }
 
