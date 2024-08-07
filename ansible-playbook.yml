@@ -1,6 +1,7 @@
 - name: Configure Docker on EC2 Instances
   hosts: all
   become: yes
+  connection: ssh
   tasks:
 
     - name: Update apt package index
@@ -30,6 +31,6 @@
         image: rocky8055/my-app:latest
         state: started
         ports:
-          - "8081:8081"
+          - "8081:8082"
       tags:
         - deploy
